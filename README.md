@@ -20,7 +20,7 @@ This project focuses on extending the DIY IoT in Physics Lab by implementing the
    - Enhance user engagement through interactive challenges and rewards.
 
 4. **⚡ Code Optimization:**
-   - Improve the existing codebase for faster connections.
+   - Improve the existing codebase for faster connections
    - Provide a smoother and more efficient user experience.
 
 
