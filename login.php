@@ -43,7 +43,7 @@ function test_input($data) {
 <html>
 <head>
     <title>Login</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="gsoc2024-DIY-IoT-Physics/css/style.css">
 </head>
 <body>
 <div class="container">
