@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$dbname = "id22209619_homeautomation";
+$dbname = "id22209619_gfoss_lab";
 $username = "id22209619_root";
 $password = "Root123@";
 

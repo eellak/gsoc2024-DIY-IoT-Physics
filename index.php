@@ -6,7 +6,7 @@ if (!isset($_SESSION["username"])) {
 }
 
 $servername = "localhost";
-$dbname = "id22209619_homeautomation";
+$dbname = "id22209619_gfoss_lab";
 $username = "id22209619_root";
 $password = "Root123@";
 
@@ -26,9 +26,6 @@ $user_sql = "SELECT u.*, ua.AccessType FROM Users u
              WHERE u.Username = '$current_username'";
 $user_result = $conn->query($user_sql);
 $user_data = $user_result->fetch_assoc();
-
-$floors_sql = "SELECT * FROM Floors";
-$floors_result = $conn->query($floors_sql);
 
 $conn->close();
 ?>
