@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Login successful
         $_SESSION["username"] = $username;
         header("Location: index.php");
-        exit(); // Always exit after a redirect to prevent further script execution
+        exit(); 
     } else {
         $error_message = "Invalid username or password, or account not approved.";
     }
