@@ -2,20 +2,19 @@
 #include <ESP8266WiFi.h>
 #include <DHT.h>
 
-
-#define WIFI_AP             "Thomas"
-#define WIFI_PASSWORD       "12345678"
+#define WIFI_AP "Thomas"
+#define WIFI_PASSWORD "12345678"
 
 // See https://thingsboard.io/docs/getting-started-guides/helloworld/
 // to understand how to obtain an access token
-#define TOKEN               "h5t7oicry4kll98904hv"  // enter access token of your ThingsBoard Device
-#define THINGSBOARD_SERVER  "demo.thingsboard.io"
+#define TOKEN "h5t7oicry4kll98904hv" // enter access token of your ThingsBoard Device
+#define THINGSBOARD_SERVER "demo.thingsboard.io"
 
 // Baud rate for debug serial
-#define SERIAL_DEBUG_BAUD   115200
+#define SERIAL_DEBUG_BAUD 115200
 
-int ts = 0;// This is a very important variable for controling when to start and stop sending the data
-#define DHTPIN 2 //Define the GPIO 2(D4 = GPIO2) pin as the DHTPIN 
+int ts = 0;      // This is a very important variable for controling when to start and stop sending the data
+#define DHTPIN 2 // Define the GPIO 2(D4 = GPIO2) pin as the DHTPIN
 #define DHTTYPE DHT11
 
 // Initialize DHT sensor.
@@ -30,9 +29,10 @@ ThingsBoard tb(espClient);
 int status = WL_IDLE_STATUS;
 
 // We assume that all GPIOs are LOW
-boolean gpioState[] = {false,false};
+boolean gpioState[] = {false, false};
 
-void setup() {
+void setup()
+{
   // Set output mode for all GPIO pins
   pinMode(DHTPIN, INPUT);
   dht.begin();
@@ -45,24 +45,25 @@ void setup() {
 
 bool subscribed = false;
 
-//This method is for toggling the on off switch
+// This method is for toggling the on off switch
 RPC_Response ts1(const RPC_Data &data)
 {
   Serial.println("Received the set switch method 4!");
   char params[10];
   serializeJson(data, params);
-  //Serial.println(params);
+  // Serial.println(params);
   String _params = params;
-  if (_params == "true") {
+  if (_params == "true")
+  {
     Serial.println("Toggle Switch - 1 => On");
-    ts=1;
-    
+    ts = 1;
   }
-  else  if (_params == "false")  {
+  else if (_params == "false")
+  {
     Serial.println("Toggle Switch - 1 => Off");
-    ts=0;
+    ts = 0;
   }
-return RPC_Response();
+  return RPC_Response();
 }
 
 // This method is to get the measurement from the sensor and send it to the server
@@ -77,12 +78,13 @@ void getAndSendTemperatureAndHumidityData()
   float temperature = dht.readTemperature();
 
   // Check if any reads failed and exit early (to try again).
-  if (isnan(humidity) || isnan(temperature)) {
+  if (isnan(humidity) || isnan(temperature))
+  {
     Serial.println("Failed to read from DHT sensor!");
     return;
   }
-  
-  //Print data in serial port
+
+  // Print data in serial port
   Serial.println("Sending data to ThingsBoard:");
   Serial.print("Humidity: ");
   Serial.print(humidity);
@@ -97,37 +99,43 @@ void getAndSendTemperatureAndHumidityData()
 
 const size_t callbacks_size = 1;
 RPC_Callback callbacks[callbacks_size] = {
-  { "getValue_1",         ts1 }   // enter the name of your switch variable inside the string
+    {"getValue_1", ts1} // enter the name of your switch variable inside the string
 
 };
 
-void loop() {
+void loop()
+{
   delay(1000);
 
-  if (WiFi.status() != WL_CONNECTED) {
+  if (WiFi.status() != WL_CONNECTED)
+  {
     reconnect();
   }
 
-  if (!tb.connected()) {
+  if (!tb.connected())
+  {
     subscribed = false;
     // Connect to the ThingsBoard
     Serial.print("Connecting to: ");
     Serial.print(THINGSBOARD_SERVER);
     Serial.print(" with token ");
     Serial.println(TOKEN);
-    if (!tb.connect(THINGSBOARD_SERVER, TOKEN)) {
+    if (!tb.connect(THINGSBOARD_SERVER, TOKEN))
+    {
       Serial.println("Failed to connect");
       return;
     }
   }
 
-  if (!subscribed) {
+  if (!subscribed)
+  {
     Serial.println("Subscribing for RPC...");
 
     // Perform a subscription. All consequent data processing will happen in
     // processTemperatureChange() and processSwitchChange() functions,
     // as denoted by callbacks[] array.
-    if (!tb.RPC_Subscribe(callbacks, callbacks_size)) {
+    if (!tb.RPC_Subscribe(callbacks, callbacks_size))
+    {
       Serial.println("Failed to subscribe for RPC");
       return;
     }
@@ -135,10 +143,10 @@ void loop() {
     Serial.println("Subscribe done");
     subscribed = true;
   }
-  if(ts==1){
-  Serial.println("Sending data...");
-  getAndSendTemperatureAndHumidityData();
-  
+  if (ts == 1)
+  {
+    Serial.println("Sending data...");
+    getAndSendTemperatureAndHumidityData();
   }
   tb.loop();
 }
@@ -149,19 +157,23 @@ void InitWiFi()
   // attempt to connect to WiFi network
 
   WiFi.begin(WIFI_AP, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
     Serial.print(".");
   }
   Serial.println("Connected to AP");
 }
 
-void reconnect() {
+void reconnect()
+{
   // Loop until we're reconnected
   status = WiFi.status();
-  if ( status != WL_CONNECTED) {
+  if (status != WL_CONNECTED)
+  {
     WiFi.begin(WIFI_AP, WIFI_PASSWORD);
-    while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED)
+    {
       delay(500);
       Serial.print(".");
     }

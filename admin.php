@@ -34,22 +34,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Login</title>
     <link rel="stylesheet" type="text/css" href="gsoc2024-DIY-IoT-Physics/css/style.css">
 </head>
+
 <body>
-<div class="container">
-    <h2>Login</h2>
-    <?php if (isset($error_message)): ?>
-        <div class='error'><?php echo $error_message; ?></div>
-    <?php endif; ?>
-    <form method="post" action="login.php">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="submit" value="Login">
-    </form>
-    <a href="signup.php">Don't have an account? Sign up</a>
-</div>
+    <div class="container">
+        <h2>Login</h2>
+        <?php if (isset($error_message)): ?>
+            <div class='error'><?php echo $error_message; ?></div>
+        <?php endif; ?>
+        <form method="post" action="login.php">
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="submit" value="Login">
+        </form>
+        <a href="signup.php">Don't have an account? Sign up</a>
+    </div>
 </body>
+
 </html>

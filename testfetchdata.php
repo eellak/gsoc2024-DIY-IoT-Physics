@@ -17,7 +17,7 @@ if ((!isset($_POST['deviceId']) || !is_numeric($_POST['deviceId'])) && (!isset($
     die(json_encode(['error' => 'Invalid Device ID']));
 }
 
-$deviceId = isset($_POST['deviceId']) ? (int)$_POST['deviceId'] : (int)$_GET['deviceId'];
+$deviceId = isset($_POST['deviceId']) ? (int) $_POST['deviceId'] : (int) $_GET['deviceId'];
 
 // Query to fetch sensor data
 $sql = "SELECT value, timestamp FROM DeviceData WHERE DeviceID='$deviceId' ORDER BY timestamp DESC LIMIT 100";
@@ -35,7 +35,7 @@ $timestamps = [];
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $values[] = is_numeric($row['value']) ? (float)$row['value'] : $row['value']; // Convert to float if numeric
+        $values[] = is_numeric($row['value']) ? (float) $row['value'] : $row['value']; // Convert to float if numeric
         $timestamps[] = $row['timestamp'];
     }
 }
