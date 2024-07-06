@@ -23,19 +23,6 @@ const App: React.FC = () => {
     <div>
       <div className="App">
         <Navbar />
-        <header className="App-header">
-          <p>
-            Edit <code>src/App.jsx</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
       </div>
       <div>
         <div>Backend Data -- {data}</div>
