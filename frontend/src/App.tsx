@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Cards from "./components/Cards";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./components/Login";
 import Axios from "axios";
@@ -35,6 +37,7 @@ const App: React.FC = () => {
           </Switch>
         </Router>
       </div>
+      <Footer/>
     </div>
   );
 };
