@@ -4,7 +4,7 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 
-app.get("/getdata", (req, res) => {
+app.get("/getData", (req, res) => {
   res.send("Data from Backend");
 });
 

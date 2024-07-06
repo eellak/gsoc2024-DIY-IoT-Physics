@@ -2,32 +2,52 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
+import Navbar from "./components/Navbar";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./components/Login";
 import Axios from "axios";
 
+
 const App: React.FC = () => {
   const [data, setData] = useState("");
   const getData = async () => {
-    const response = await Axios.get("http://localhost:5173/getData");
+    const response = await Axios.get("http://localhost:5000/getData");
     setData(response.data);
   };
 
   useEffect(() => {
-    getData;
+    getData();
   }, []);
 
   return (
     <div>
-      <div>{data}</div>
-      <Login />
-      <Router>
-        <Switch>
-          <Route path="/signup" component={Signup} />
-          <Route path="/signin" component={Signin} />
-          <Route path="/admin" component={AdminPanel} />
-        </Switch>
-      </Router>
+      <div className="App">
+        <Navbar />
+        <header className="App-header">
+          <p>
+            Edit <code>src/App.jsx</code> and save to reload.
+          </p>
+          <a
+            className="App-link"
+            href="https://reactjs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn React
+          </a>
+        </header>
+      </div>
+      <div>
+        <div>Backend Data -- {data}</div>
+        <Login />
+        <Router>
+          <Switch>
+            <Route path="/signup" component={Signup} />
+            <Route path="/signin" component={Signin} />
+            <Route path="/admin" component={AdminPanel} />
+          </Switch>
+        </Router>
+      </div>
     </div>
   );
 };
