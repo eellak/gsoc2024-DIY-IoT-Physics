@@ -9,7 +9,7 @@ import Crousel from "./components/Crousel";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./components/Login";
 import Axios from "axios";
-
+import './App.css'
 
 const App: React.FC = () => {
   const [data, setData] = useState("");
@@ -24,15 +24,14 @@ const App: React.FC = () => {
 
   return (
     <div>
+      
       <div className="App">
         <Navbar />
       </div>
-      {/* <Crousel img="./images/pendulum.jpg" name="Pendulam" text="This is pendulum"/> */}
-      <Cards img="./images/pendulum.jpg" name="Pendulam" text="This is pendulum"/>
-      <Cards img="./images/robotic arm.jpg" name="robotic arm" text="This is robotic arm"/>
-      <Cards img="./images/light refraction reflection.jpg" name="light refraction reflection" text="This is light refraction reflection"/>
-      <Cards img="./images/spring oscillator1.jpg" name="spring oscillator1" text="This is spring oscillator1"/>
-      <Cards img="./images/heat energy boxes.jpg" name="heat energy boxes" text="This is heat energy boxes"/>
+      <Crousel/>
+      <Login />
+      <h1 className="text-bold">Hello world!</h1>
+
 
       <div>
         <div>Backend Data -- {data}</div>
@@ -45,7 +44,7 @@ const App: React.FC = () => {
           </Switch>
         </Router>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
