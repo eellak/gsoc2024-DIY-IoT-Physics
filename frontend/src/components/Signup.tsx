@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { FaUser, FaEnvelope, FaCalendarAlt, FaBriefcase, FaSchool, FaLock } from 'react-icons/fa';
+// Photo by <a href="https://unsplash.com/@zoltantasi?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Zoltan Tasi</a> on <a href="https://unsplash.com/photos/red-light-ball-illustration-6vEqcR8Icbs?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
 
 const SignUp = () => {
   const [dob, setDob] = useState('');
 
   return (
-    <div className="min-h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: 'url(https://your-image-url.jpg)' }}>
+    <div className="min-h-screen bg-cover bg-center flex items-center justify-center" style={{ backgroundImage: 'url(./images/lab_bg.jpg)' }}>
       <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-md w-full">
         <h2 className="text-3xl font-bold mb-4 text-center">Join the Adventure!</h2>
         <p className="text-center text-gray-600 mb-6">Create your account and start exploring!</p>

@@ -38,7 +38,7 @@ const Navbar = () => {
               <a href="#" className="hover:text-gray-300">About</a>
             </li>
             
-            <Link to="/signup" className="btn btn-outline-warning m-3">Sign Up</Link>
+            {/* <Link to="/signup" className="btn btn-outline-warning m-3">Sign Up</Link> */}
             <li className="m-3">
             {/* <Link to="/login" className="btn btn-outline-primary m-3">Login</Link> */}
               {/* <button className="btn bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">

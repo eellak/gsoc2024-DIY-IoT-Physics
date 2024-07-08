@@ -29,7 +29,7 @@ const App: React.FC = () => {
         <Navbar />
       </div>
       <Crousel/>
-      <Login />
+
       <h1 className="text-bold">Hello world!</h1>
 
 
