@@ -35,11 +35,12 @@ const App: React.FC = () => {
 
       <div>
         <div>Backend Data -- {data}</div>
-        <Login />
+        {/* <Login />
+        <Signup/> */}
         <Router>
           <Switch>
             <Route path="/signup" component={Signup} />
-            <Route path="/signin" component={Signin} />
+            <Route path="/signin" component={Login} />
             <Route path="/admin" component={AdminPanel} />
           </Switch>
         </Router>

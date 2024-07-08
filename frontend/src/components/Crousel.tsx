@@ -51,7 +51,7 @@ function Crousel() {
 
   return (
     <div className="w-11/12 m-auto ">
-      <div className="mt-5">
+      <div className="mt-20">
       <Slider {...settings}>
         {data.map((d) => (
           <div className="bg-blue w-1 text-black rounded-xl">
