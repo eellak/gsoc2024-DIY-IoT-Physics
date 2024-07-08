@@ -3,7 +3,7 @@ import "../App.css";
 
 const Navbar = () => {
   return (
-    <nav className="bg-gray-800 border-b border-gray-700">
+    <nav className="bg-current border-b border-gray-700">
     {/* <nav className="bg-gray-800 border-b border-gray-700 fixed top-0 left-0 right-0"> */}
       <div className="container mx-auto flex items-center justify-between px-4 py-3">
         <a href="#" className="flex items-center">
@@ -31,22 +31,22 @@ const Navbar = () => {
           <ul className="flex flex-col lg:flex-row lg:space-x-6 text-white">
             <li className="m-3">
               {/* <a href="#" className="hover:text-gray-300"><Link to="/" className="hover:text-gray-300">Home</Link></a> */}
-              <Link to="/" className="hover:text-gray-300">Home</Link>
+              <Link to="/" className="hover:text-gray-400">Home</Link>
             </li>
             <li className="m-3">
-              <a href="#" className="hover:text-gray-300">Contact Us</a>
+              <a href="#" className="hover:text-gray-400">Contact Us</a>
             </li>
             <li className="m-3">
-              <a href="#" className="hover:text-gray-300">About</a>
+              <a href="#" className="hover:text-gray-400">About</a>
             </li>          
             
 
-            <li className="m-3">            
+            <li className="m-1">            
               <button className="btn bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded">
               <Link to="/signup">Sign Up</Link>
               </button>
             </li>
-            <li className="m-3">
+            <li className="m-1">
               <button className="btn bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">
               <Link to="/signin">Login</Link>
               </button>

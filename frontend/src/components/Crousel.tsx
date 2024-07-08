@@ -95,14 +95,14 @@ const Crousel: React.FC = () => {
   };
 
   return (
-    <div className="w-11/12 m-auto mt-20">
+    <div className="w-11/12 m-auto mt-20 mb-20">
       <Slider {...settings}>
         {data.map((d) => (
-          <div key={d.id} className="card carousel-card bg-white shadow-lg rounded-lg">
+          <div key={d.id} className="card carousel-card bg-white shadow-lg rounded-2xl">
             <img
               src={'./images/sensor' + d.id + '.jpg'}
               alt={d.name}
-              className="card-img-top h-56 w-full object-cover rounded-t-lg"
+              className="card-img-top h-[450px] w-full object-cover rounded-t-lg"
             />
             <div className="card-body p-4 flex flex-col items-center">
               <h5 className="card-title text-center text-uppercase text-xl font-bold">{d.name}</h5>
