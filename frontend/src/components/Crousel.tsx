@@ -1,80 +1,121 @@
-import Slider from "react-slick";
-import "../App.css";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-interface Props {
-  img: string;
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Slider, { Settings } from 'react-slick';
+import '../App.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
+interface CarouselItem {
+  id: string;
   name: string;
-  text: string;
+  detail: string;
 }
 
-const data = [
+const data: CarouselItem[] = [
   {
-    id: "1",
-    name: "Pendulum",
-    detail: "This is pendulum",
+    id: '1',
+    name: 'Pendulum',
+    detail: 'This is pendulum',
   },
   {
-    id: "2",
-    name: "light refraction reflection",
-    detail: "This is light refraction reflection",
+    id: '2',
+    name: 'Light Refraction Reflection',
+    detail: 'This is light refraction reflection',
   },
   {
-    id: "3",
-    name: "robotic arm",
-    detail: "This is robotic arm",
+    id: '3',
+    name: 'Robotic Arm',
+    detail: 'This is robotic arm',
   },
   {
-    id: "4",
-    name: "spring oscillator",
-    detail: "This is spring oscillator",
+    id: '4',
+    name: 'Spring Oscillator',
+    detail: 'This is spring oscillator',
   },
   {
-    id: "5",
-    name: "heat energy boxes",
-    detail: " his is heat energy boxes",
+    id: '5',
+    name: 'Heat Energy Boxes',
+    detail: 'This is heat energy boxes',
   },
 ];
-// {img, name, text}: Props
-function Crousel() {
-  const settings = {
-    className: "center",
-    // dots: true,
-    // fade: true,
+
+const Crousel: React.FC = () => {
+  const settings: Settings = {
+    className: 'center',
     centerMode: true,
     infinite: true,
-    centerPadding: "60px",
+    centerPadding: '60px',
     slidesToShow: 3,
     slidesToScroll: 1,
     speed: 300,
+    responsive: [
+      {
+        breakpoint: 768, // Mobile
+        settings: {
+          slidesToShow: 1,
+          centerPadding: '40px',
+        },
+      },
+      {
+        breakpoint: 1024, // Tablet
+        settings: {
+          slidesToShow: 2,
+          centerPadding: '50px',
+        },
+      },
+    ],
+    beforeChange: (current: number, next: number) => handleBeforeChange(next),
+    afterChange: (current: number) => handleAfterChange(current),
+  };
+
+  const handleBeforeChange = (next: number) => {
+    const slides = document.querySelectorAll('.slick-slide');
+    slides.forEach((slide, index) => {
+      const slideElement = slide as HTMLElement;
+      if (index === next + 1) {
+        slideElement.classList.add('highlighted');
+      } else {
+        slideElement.classList.remove('highlighted');
+      }
+    });
+  };
+
+  const handleAfterChange = (current: number) => {
+    const slides = document.querySelectorAll('.slick-slide');
+    slides.forEach((slide, index) => {
+      const slideElement = slide as HTMLElement;
+      if (index === current + 1) {
+        slideElement.classList.add('highlighted');
+        slideElement.style.zIndex = '10';
+      } else {
+        slideElement.classList.remove('highlighted');
+        slideElement.style.zIndex = '1';
+      }
+    });
   };
 
   return (
-    <div className="w-11/12 m-auto ">
-      <div className="mt-20">
+    <div className="w-11/12 m-auto mt-20">
       <Slider {...settings}>
         {data.map((d) => (
-          <div className="bg-blue w-1 text-black rounded-xl">
-            <div className="h-56 rounded-t-xl flex justify-center items-center bg-red-500">
-              <img
-                src={"./images/sensor" + d.id + ".jpg"}
-                alt={d.name}
-                className="object-scale-down h-[200px] w-80 rounded-xl"
-              />
-            </div>
-            <div className="flex flex-col justify-center items-center gap-1 p-2 bg-zinc-600">
-              <p className="text-sm font-semibold uppercase">{d.name}</p>
-              <p className="capitalize">{d.detail}</p>
-              <button className="bg-indigo-500 text-white text-lg px-6">
+          <div key={d.id} className="card carousel-card bg-white shadow-lg rounded-lg">
+            <img
+              src={'./images/sensor' + d.id + '.jpg'}
+              alt={d.name}
+              className="card-img-top h-56 w-full object-cover rounded-t-lg"
+            />
+            <div className="card-body p-4 flex flex-col items-center">
+              <h5 className="card-title text-center text-uppercase text-xl font-bold">{d.name}</h5>
+              <p className="card-text text-center">{d.detail}</p>
+              <Link to="/book_slot" className="btn btn-primary mt-4 px-4 py-2 rounded bg-indigo-500 text-white">
                 Book a Slot
-              </button>
+              </Link>
             </div>
           </div>
         ))}
       </Slider>
-      </div>
     </div>
   );
-}
+};
 
 export default Crousel;

@@ -4,8 +4,9 @@ import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-8">
-      <div className="container mx-auto px-4">
+    <footer className="bg-gray-800 text-white py-8 ">
+    {/* <footer className="bg-gray-800 text-white py-8 fixed bottom-0 left-0 right-0"> */}
+      <div className="container mx-auto px-6 h-15" >
         <div className="flex flex-wrap justify-between">
           <div className="w-full md:w-1/3 mb-6 md:mb-0">
             <h5 className="text-xl font-semibold mb-4">About</h5>
@@ -40,7 +41,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t border-gray-700 pt-4 text-center">
+        <div className="mt-6 border-t border-gray-700 pt-2 text-center">
           <p className="text-gray-400">
             &copy; {new Date().getFullYear()} IoT Physics Lab. All rights reserved.
           </p>

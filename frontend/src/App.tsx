@@ -9,7 +9,7 @@ import Crousel from "./components/Crousel";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./components/Login";
 import Axios from "axios";
-import './App.css'
+import "./App.css";
 
 const App: React.FC = () => {
   const [data, setData] = useState("");
@@ -24,28 +24,19 @@ const App: React.FC = () => {
 
   return (
     <div>
-      
-      <div className="App">
+      <Router>
+      <div className="min-h-screen flex flex-col">
         <Navbar />
-      </div>
-      <Crousel/>
-
-      <h1 className="text-bold">Hello world!</h1>
-
-
-      <div>
-        <div>Backend Data -- {data}</div>
-        {/* <Login />
-        <Signup/> */}
-        <Router>
+        <div className="flex-grow">
           <Switch>
+            <Route path="/Signin" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/signin" component={Login} />
-            <Route path="/admin" component={AdminPanel} />
+            <Route path="/" component={Crousel} />
           </Switch>
-        </Router>
+        </div>
+        <Footer />
       </div>
-      <Footer />
+      </Router>
     </div>
   );
 };

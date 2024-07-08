@@ -8,6 +8,64 @@
     }
 }
 
+.footer {
+    position: relative;
+    z-index: 0;
+  }
+
 .slick-slide > div{
-    margin:0 10px;
+    margin:0 60px;
 }
+
+.carousel-card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+    width: 18rem;
+    height: 40rem;
+  }
+  
+  .slick-slide {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .slick-slide.highlighted {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  
+  .slick-center {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+  
+  .slick-list {
+    overflow: visible;
+  }
+  
+  .footer {
+    position: relative;
+    z-index: 0;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  
+
+  
+  
