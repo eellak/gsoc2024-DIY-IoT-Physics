@@ -49,9 +49,50 @@ const SignUp: React.FC = () => {
     return !Object.values(errors).some((error) => error);
   };
 
+  const validateField = (field: string, value: string) => {
+    if (value.trim() === "") {
+      alert(`Please fill out the ${field} field.`);
+      return false;
+    }
+    return true;
+  };
+
+  const validatePasswordMatch = () => {
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (validateForm()) {
+
+    const fieldsToValidate = [
+      { field: "username", value: formData.username },
+      { field: "dob", value: dob },
+      { field: "password", value: formData.password },
+      { field: "confirmPassword", value: formData.confirmPassword },
+    ];
+
+    if (studentType === "college") {
+      fieldsToValidate.push(
+        { field: "email", value: formData.email },
+        { field: "purpose", value: formData.purpose }
+      );
+    } else if (studentType === "school") {
+      fieldsToValidate.push({
+        field: "schoolCode",
+        value: formData.schoolCode,
+      });
+    }
+
+    const allFieldsValid = fieldsToValidate.every(({ field, value }) =>
+      validateField(field, value)
+    );
+    const passwordsMatch = validatePasswordMatch();
+
+    if (allFieldsValid && passwordsMatch) {
       alert("Form submitted successfully! Wait for admin approval.");
     }
   };
@@ -122,6 +163,7 @@ const SignUp: React.FC = () => {
                 } rounded-lg`}
                 placeholder="Enter your username"
                 onChange={handleInputChange}
+                onBlur={(e) => validateField('username', e.target.value)}
               />
             </div>
           </div>
@@ -139,6 +181,7 @@ const SignUp: React.FC = () => {
                 className={`w-full px-3 py-2 focus:outline-none focus:ring-2 ${
                   formErrors.dob ? "border-red-500" : "focus:ring-blue-600"
                 } rounded-lg`}
+                onBlur={(e) => validateField('date', e.target.value)}
               />
             </div>
           </div>
@@ -163,6 +206,7 @@ const SignUp: React.FC = () => {
                     } rounded-lg`}
                     placeholder="Enter your email"
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('email', e.target.value)}
                   />
                 </div>
               </div>
@@ -181,6 +225,7 @@ const SignUp: React.FC = () => {
                     className="w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-lg"
                     placeholder="Enter your college name"
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('text', e.target.value)}
                   />
                 </div>
               </div>
@@ -204,6 +249,7 @@ const SignUp: React.FC = () => {
                     } rounded-lg`}
                     placeholder="Enter your password"
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('password', e.target.value)}
                   />
                 </div>
                 {passwordSuggestions}
@@ -227,6 +273,7 @@ const SignUp: React.FC = () => {
                     } rounded-lg`}
                     placeholder="Confirm your password"
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('confirmPassword', e.target.value)}
                   />
                 </div>
                 <div className="mb-4">
@@ -242,6 +289,7 @@ const SignUp: React.FC = () => {
                     placeholder="Explain your purpose to use the lab"
                     rows={3}
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('purpose', e.target.value)}
                   ></textarea>
                 </div>
               </div>
@@ -267,6 +315,7 @@ const SignUp: React.FC = () => {
                     } rounded-lg`}
                     placeholder="Enter your school code"
                     onChange={handleInputChange}
+                    onBlur={(e) => validateField('schoolCode', e.target.value)}
                   />
                 </div>
               </div>
@@ -282,9 +331,9 @@ const SignUp: React.FC = () => {
         <div className="text-center mt-4">
           <p className="text-gray-600">
             Already have an account?{" "}
-            <a href="#" className="text-blue-600 hover:underline">
+            <Link to="/signin" className="text-blue-600 hover:underline">
               Log in here!
-            </a>
+            </Link>
           </p>
         </div>
       </div>
