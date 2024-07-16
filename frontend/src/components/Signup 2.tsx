@@ -4,20 +4,20 @@ import {
   FaUser,
   FaEnvelope,
   FaCalendarAlt,
-  FaSchool,
+  FaTeacher,
   FaLock,
 } from "react-icons/fa";
 
 const SignUp: React.FC = () => {
   const [dob, setDob] = useState("");
-  const [studentType, setStudentType] = useState<"school" | "college" | "">("");
-  // const [studentType, setStudentType] = useState<"school" | "college" | "">("");
+  const [studentType, setStudentType] = useState<"Teacher" | "college" | "">("");
+  // const [studentType, setStudentType] = useState<"Teacher" | "college" | "">("");
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     college: "",
     purpose: "",
-    schoolCode: "",
+    TeacherCode: "",
     password: "",
     confirmPassword: "",
   });
@@ -81,10 +81,10 @@ const SignUp: React.FC = () => {
         { field: "email", value: formData.email },
         { field: "purpose", value: formData.purpose }
       );
-    } else if (studentType === "school") {
+    } else if (studentType === "Teacher") {
       fieldsToValidate.push({
-        field: "schoolCode",
-        value: formData.schoolCode,
+        field: "TeacherCode",
+        value: formData.TeacherCode,
       });
     }
 
@@ -121,7 +121,7 @@ const SignUp: React.FC = () => {
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">
-              Are you a school or college student?{" "}
+              Are you a Teacher or college student?{" "}
               <span className="text-red-500">*</span>
             </label>
             <div className="flex items-center">
@@ -129,11 +129,11 @@ const SignUp: React.FC = () => {
                 <input
                   type="radio"
                   name="studentType"
-                  value="school"
-                  onChange={() => setStudentType("school")}
-                  checked={studentType === "school"}
+                  value="Teacher"
+                  onChange={() => setStudentType("Teacher")}
+                  checked={studentType === "Teacher"}
                 />
-                School Student
+                Teacher Student
               </label>
               <label>
                 <input
@@ -219,7 +219,7 @@ const SignUp: React.FC = () => {
                   College Name
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-lg">
-                  <FaSchool className="text-gray-400 ml-3" />
+                  <FaTeacher className="text-gray-400 ml-3" />
                   <input
                     type="text"
                     id="college"
@@ -296,27 +296,27 @@ const SignUp: React.FC = () => {
               </div>
             </>
           ) : (
-            studentType === "school" && (
+            studentType === "Teacher" && (
               <div className="mb-4">
                 <label
-                  htmlFor="schoolCode"
+                  htmlFor="TeacherCode"
                   className="block text-gray-700 font-bold mb-2"
                 >
-                  School Code <span className="text-red-500">*</span>
+                  Teacher Code <span className="text-red-500">*</span>
                 </label>
                 <div className="flex items-center border border-gray-300 rounded-lg">
-                  <FaSchool className="text-gray-400 ml-3" />
+                  <FaTeacher className="text-gray-400 ml-3" />
                   <input
                     type="text"
-                    id="schoolCode"
+                    id="TeacherCode"
                     className={`w-full px-3 py-2 focus:outline-none focus:ring-2 ${
                       formErrors.username
                         ? "border-red-500"
                         : "focus:ring-blue-600"
                     } rounded-lg`}
-                    placeholder="Enter your school code"
+                    placeholder="Enter your Teacher code"
                     onChange={handleInputChange}
-                    onBlur={(e) => validateField('schoolCode', e.target.value)}
+                    onBlur={(e) => validateField('TeacherCode', e.target.value)}
                   />
                 </div>
               </div>
