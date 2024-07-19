@@ -29,7 +29,7 @@ const App: React.FC = () => {
         <Navbar />
         <div className="flex-grow">
           <Switch>
-            <Route path="/Signin" component={Login} />
+            <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
             <Route path="/" component={Crousel} />
           </Switch>

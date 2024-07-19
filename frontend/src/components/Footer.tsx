@@ -22,7 +22,7 @@ const Footer = () => {
                 <a href="#" className="hover:text-gray-300">About</a>
               </li>
               <li className="mb-2">
-                <a href="#" className="hover:text-gray-300">GitHub</a>
+                <a href="https://github.com/eellak" className="hover:text-gray-300">GitHub</a>
               </li>
             </ul>
           </div>
@@ -32,7 +32,7 @@ const Footer = () => {
               <a href="#" className="hover:text-gray-300">
                 <FaFacebook size="24" />
               </a>
-              <a href="#" className="hover:text-gray-300">
+              <a href="https://github.com/eellak" className="hover:text-gray-300">
                 <FaGithub size="24" />
               </a>
               <a href="#" className="hover:text-gray-300">

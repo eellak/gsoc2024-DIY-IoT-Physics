@@ -48,7 +48,7 @@ const Navbar = () => {
             </li>
             <li className="m-1">
               <button className="btn bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded">
-              <Link to="/signin">Login</Link>
+              <Link to="/signin">Sign In</Link>
               </button>
             </li>
           </ul>
