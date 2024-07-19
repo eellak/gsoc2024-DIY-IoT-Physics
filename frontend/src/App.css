@@ -13,6 +13,8 @@
     z-index: 0;
   }
 
+/* ---- Crousel --- */
+
 .slick-slide > div{
     margin:0 40px;
 }
@@ -66,7 +68,31 @@
     justify-content: center;
   }
   
-  
+/* ---- Crousel --- */
+
+
+/* ---  Booking   ---*/
+
+.booking-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.react-calendar__tile.available {
+  background-color: green !important;
+  color: white !important;
+}
+
+.react-calendar__tile.low {
+  background-color: yellow !important;
+}
+
+.react-calendar__tile.full {
+  background-color: darkred !important;
+  color: white !important;
+}
+
+/* --  Booking ---*/
 
   
   

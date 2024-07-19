@@ -14,7 +14,7 @@ const Navbar = () => {
           />
         </a>
         <div className="flex-grow text-center">
-          <p className="text-white text-2xl font-semibold">
+          <p className="text-white text-2xl hover:text-3xl font-semibold">
             Welcome to IoT Physics Lab!
           </p>
         </div>

@@ -8,6 +8,7 @@ import Cards from "./components/Cards";
 import Crousel from "./components/Crousel";
 import AdminPanel from "./pages/AdminPanel";
 import Login from "./components/Login";
+import Booking from "./components/Booking";
 import Axios from "axios";
 import "./App.css";
 
@@ -31,6 +32,7 @@ const App: React.FC = () => {
           <Switch>
             <Route path="/signin" component={Signin} />
             <Route path="/signup" component={Signup} />
+            <Route path="/book_slot" component={Booking} />
             <Route path="/" component={Crousel} />
           </Switch>
         </div>
