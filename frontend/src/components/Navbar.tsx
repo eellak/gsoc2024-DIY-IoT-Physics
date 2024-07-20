@@ -37,7 +37,7 @@ const Navbar = () => {
               <a href="#" className="hover:text-gray-400">Contact Us</a>
             </li>
             <li className="m-3">
-              <a href="#" className="hover:text-gray-400">About</a>
+              <a href="https://gfoss.eu/" className="hover:text-gray-400">About</a>
             </li>          
             
 

@@ -1,9 +1,56 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import React, { useState, ChangeEvent, FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { FaUser, FaLock } from "react-icons/fa";
+import { auth, db } from "../firebaseConfig";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { getDocs, query, where, collection } from "firebase/firestore";
 
-const Signin = () => {
-  const [userType, setUserType] = useState('teacherCollege');
+const SignIn: React.FC = () => {
+  const [userType, setUserType] = useState<"schoolStudent" | "teacherCollege">("teacherCollege");
+  const [formData, setFormData] = useState({ usernameOrEmail: "", passwordOrCode: "" });
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setFormData({ ...formData, [id]: value });
+  };
+
+  const handleLogin = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (userType === "schoolStudent") {
+      try {
+        // Fetch user with the given username and school code
+        const usersRef = collection(db, "users");
+        const q = query(usersRef, where("username", "==", formData.usernameOrEmail), where("schoolCode", "==", formData.passwordOrCode));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          alert("Invalid username or school code.");
+          return;
+        }
+
+        // Get the user's email from the fetched document
+        const userDoc = querySnapshot.docs[0];
+        const userData = userDoc.data();
+
+        // Sign in using email and school code (as a password)
+        await signInWithEmailAndPassword(auth, userData.email, formData.passwordOrCode);
+        alert("Login successful!");
+      } catch (error: any) {
+        console.error("Error signing in: ", error);
+        alert("Error signing in: " + error.message);
+      }
+    } else {
+      try {
+        // Sign in using email and password
+        await signInWithEmailAndPassword(auth, formData.usernameOrEmail, formData.passwordOrCode);
+        alert("Login successful!");
+      } catch (error: any) {
+        console.error("Error signing in: ", error);
+        alert("Error signing in: " + error.message);
+      }
+    }
+  };
 
   return (
     <div
@@ -15,7 +62,7 @@ const Signin = () => {
         <p className="text-center text-gray-600 mb-6">
           Ready to dive into the fun?
         </p>
-        <form>
+        <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">I am a</label>
             <div className="flex items-center space-x-4">
@@ -23,8 +70,8 @@ const Signin = () => {
                 <input
                   type="radio"
                   value="schoolStudent"
-                  checked={userType === 'schoolStudent'}
-                  onChange={() => setUserType('schoolStudent')}
+                  checked={userType === "schoolStudent"}
+                  onChange={() => setUserType("schoolStudent")}
                   className="mr-2"
                 />
                 School Student
@@ -33,8 +80,8 @@ const Signin = () => {
                 <input
                   type="radio"
                   value="teacherCollege"
-                  checked={userType === 'teacherCollege'}
-                  onChange={() => setUserType('teacherCollege')}
+                  checked={userType === "teacherCollege"}
+                  onChange={() => setUserType("teacherCollege")}
                   className="mr-2"
                 />
                 Teacher/College Student
@@ -43,7 +90,7 @@ const Signin = () => {
           </div>
           <div className="mb-4">
             <label
-              htmlFor="username"
+              htmlFor="usernameOrEmail"
               className="block text-gray-700 font-bold mb-2"
             >
               Username or Email
@@ -52,16 +99,18 @@ const Signin = () => {
               <FaUser className="text-gray-400 ml-3 mr-2" />
               <input
                 type="text"
-                id="username"
+                id="usernameOrEmail"
                 className="w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-lg"
                 placeholder="Enter your username or email"
+                value={formData.usernameOrEmail}
+                onChange={handleInputChange}
               />
             </div>
           </div>
-          {userType === 'teacherCollege' ? (
+          {userType === "teacherCollege" ? (
             <div className="mb-6">
               <label
-                htmlFor="password"
+                htmlFor="passwordOrCode"
                 className="block text-gray-700 font-bold mb-2"
               >
                 Password
@@ -70,16 +119,18 @@ const Signin = () => {
                 <FaLock className="text-gray-400 ml-3 mr-2" />
                 <input
                   type="password"
-                  id="password"
+                  id="passwordOrCode"
                   className="w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-lg"
                   placeholder="Enter your password"
+                  value={formData.passwordOrCode}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
           ) : (
             <div className="mb-6">
               <label
-                htmlFor="schoolCode"
+                htmlFor="passwordOrCode"
                 className="block text-gray-700 font-bold mb-2"
               >
                 School Code
@@ -88,9 +139,11 @@ const Signin = () => {
                 <FaLock className="text-gray-400 ml-3 mr-2" />
                 <input
                   type="text"
-                  id="schoolCode"
+                  id="passwordOrCode"
                   className="w-full px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600 rounded-lg"
                   placeholder="Enter your school code"
+                  value={formData.passwordOrCode}
+                  onChange={handleInputChange}
                 />
               </div>
             </div>
@@ -115,4 +168,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default SignIn;

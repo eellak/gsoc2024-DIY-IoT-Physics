@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from 'react-router-dom';
 import {
   FaUser,
@@ -8,10 +8,23 @@ import {
   FaSchool,
   FaLock,
 } from "react-icons/fa";
+import { auth, db } from "../firebaseConfig";
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
 
-const SignUp = () => {
-  const [studentType, setStudentType] = useState("collegeStudent");
-  const [formData, setFormData] = useState({
+type FormData = {
+  username: string;
+  dob: string;
+  email: string;
+  college: string;
+  purpose: string;
+  password: string;
+  confirmPassword: string;
+};
+
+const SignUp: React.FC = () => {
+  const [studentType, setStudentType] = useState<"collegeStudent" | "teacher">("collegeStudent");
+  const [formData, setFormData] = useState<FormData>({
     username: "",
     dob: "",
     email: "",
@@ -21,11 +34,7 @@ const SignUp = () => {
     confirmPassword: "",
   });
 
-  const handleInputChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
@@ -46,7 +55,7 @@ const SignUp = () => {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const fieldsToValidate = [
@@ -65,9 +74,34 @@ const SignUp = () => {
     const passwordsMatch = validatePasswordMatch();
 
     if (allFieldsValid && passwordsMatch) {
-      alert("Form submitted successfully! Wait for admin approval.");
+      try {
+        // Create user with email and password
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const user = userCredential.user;
+
+        // Send email verification
+        await sendEmailVerification(user);
+
+        // Save user data to Firestore
+        await setDoc(doc(db, "users", user.uid), {
+          username: formData.username,
+          dob: formData.dob,
+          email: formData.email,
+          college: formData.college,
+          purpose: formData.purpose,
+          studentType: studentType,
+          isVerified: false,
+          isApproved: false,
+        });
+
+        alert("User signed up and email sent for verification. Wait for admin approval.");
+      } catch (error: any) {
+        console.error("Error signing up: ", error);
+        alert("Error signing up: " + error.message);
+      }
     }
   };
+
 
   return (
     <div
