@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { FaUser, FaLock } from "react-icons/fa";
+import { FaUser, FaLock, FaGithub, FaGoogle } from "react-icons/fa";
 import { auth, db } from "../firebaseConfig";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signInWithPopup, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
 import { getDocs, query, where, collection } from "firebase/firestore";
 
 const SignIn: React.FC = () => {
@@ -19,9 +19,12 @@ const SignIn: React.FC = () => {
 
     if (userType === "schoolStudent") {
       try {
-        // Fetch user with the given username and school code
         const usersRef = collection(db, "users");
-        const q = query(usersRef, where("username", "==", formData.usernameOrEmail), where("schoolCode", "==", formData.passwordOrCode));
+        const q = query(
+          usersRef,
+          where("username", "==", formData.usernameOrEmail),
+          where("schoolCode", "==", formData.passwordOrCode)
+        );
         const querySnapshot = await getDocs(q);
 
         if (querySnapshot.empty) {
@@ -29,11 +32,9 @@ const SignIn: React.FC = () => {
           return;
         }
 
-        // Get the user's email from the fetched document
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
 
-        // Sign in using email and school code (as a password)
         await signInWithEmailAndPassword(auth, userData.email, formData.passwordOrCode);
         alert("Login successful!");
       } catch (error: any) {
@@ -42,13 +43,34 @@ const SignIn: React.FC = () => {
       }
     } else {
       try {
-        // Sign in using email and password
         await signInWithEmailAndPassword(auth, formData.usernameOrEmail, formData.passwordOrCode);
         alert("Login successful!");
       } catch (error: any) {
         console.error("Error signing in: ", error);
         alert("Error signing in: " + error.message);
       }
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    const provider = new GithubAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      alert("GitHub Login successful!");
+    } catch (error: any) {
+      console.error("Error with GitHub login: ", error);
+      alert("Error with GitHub login: " + error.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+      await signInWithPopup(auth, provider);
+      alert("Google Login successful!");
+    } catch (error: any) {
+      console.error("Error with Google login: ", error);
+      alert("Error with Google login: " + error.message);
     }
   };
 
@@ -155,6 +177,20 @@ const SignIn: React.FC = () => {
             Log In
           </button>
         </form>
+        <div className="flex items-center justify-center mt-8">
+          <button
+            onClick={handleGoogleLogin}
+            className="flex items-center bg-red-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-red-600 transition duration-300"
+          >
+            <FaGoogle className="mr-2" /> Sign in with Google
+          </button>
+          <button
+            onClick={handleGithubLogin}
+            className="flex items-center bg-gray-800 text-white px-4 py-2 rounded-lg hover:bg-gray-900 transition duration-300"
+          >
+            <FaGithub className="mr-2" /> Sign in with GitHub
+          </button>
+        </div>
         <div className="text-center mt-4">
           <p className="text-gray-600">
             Don't have an account?{" "}
