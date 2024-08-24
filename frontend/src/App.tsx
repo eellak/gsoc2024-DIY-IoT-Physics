@@ -1,44 +1,51 @@
-// Imports
 import React, { useEffect, useState } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import Signup from "./components/Signup";
 import Signin from "./components/Signin";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Cards from "./components/Cards";
 import Crousel from "./components/Crousel";
-import AdminPanel from "./pages/AdminPanel";
-import Login from "./components/Login";
 import Booking from "./components/Booking";
-import Axios from "axios";
+import { auth } from "./firebaseConfig"; 
 import "./App.css";
 
 const App: React.FC = () => {
-  const [data, setData] = useState("");
-  const getData = async () => {
-    const response = await Axios.get("http://localhost:5000/getData");
-    setData(response.data);
-  };
+  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    getData();
+    // authentication state changes
+    const unsubscribe = auth.onAuthStateChanged((currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsubscribe();
   }, []);
 
   return (
     <div>
       <Router>
-      <div className="min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-grow">
-          <Switch>
-            <Route path="/signin" component={Signin} />
-            <Route path="/signup" component={Signup} />
-            <Route path="/book_slot" component={Booking} />
-            <Route path="/" component={Crousel} />
-          </Switch>
+        <div className="min-h-screen flex flex-col">
+          <Navbar user={user} />
+          <div className="flex-grow">
+            <Switch>
+              <Route path="/signin">
+                <Signin />
+              </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
+              <Route path="/book_slot">
+                {user ? <Booking /> : <Redirect to="/signin" />}
+              </Route>
+              <Route path="/" component={Crousel} />
+            </Switch>
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
       </Router>
     </div>
   );
