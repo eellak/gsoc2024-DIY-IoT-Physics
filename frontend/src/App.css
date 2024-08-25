@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body{
+        background-color: rgb(253, 179, 136);
+    }
+}
+
+.footer {
+    position: relative;
+    z-index: 0;
+  }
+
+/* ---- Crousel --- */
+
+.slick-slide > div{
+    margin:0 40px;
+}
+
+.carousel-card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+    width: 18rem;
+    height: 45rem;
+  }
+  
+  .slick-slide {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .slick-slide.highlighted {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  
+  .slick-center {
+    opacity: 1;
+    transform: scale(1.2);
+
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+  
+  .slick-list {
+    overflow: visible;
+  }
+  
+  .footer {
+    position: relative;
+    z-index: 0;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+/* ---- Crousel --- */
+
+
+/* ---  Booking   ---*/
+
+.booking-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.react-calendar__tile.available {
+  background-color: green !important;
+  color: white !important;
+}
+
+.react-calendar__tile.low {
+  background-color: yellow !important;
+}
+
+.react-calendar__tile.full {
+  background-color: darkred !important;
+  color: white !important;
+}
+
+/* --  Booking ---*/
+
+  
+  
