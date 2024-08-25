@@ -124,7 +124,7 @@ void reconnect()
   {
     Serial.println("Reconnecting to Wi-Fi...");
     WiFiManager wifiManager;
-    // This starts the configuration portal for Wi-Fi selection in case connection fails
+    // Starts the configuration portal for Wi-Fi selection in case connection fails
     wifiManager.autoConnect("ESP8266-ConfigAP");
   }
 }
