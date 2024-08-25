@@ -1,3 +1,6 @@
+// Include all the necessary libraries
+//ThingsBoard - Version 0.6.0 and Pubsubclient- version 2.8.0 ArduinoJson- version 6.19.4 rest are latest versions
+
 #include "ThingsBoard.h" // Version 0.6.0 and Pubsubclient version 2.8.0 ArduinoJson version 6.19.4
 #include <ESP8266WiFi.h>  // Latest
 #include <WiFiManager.h>  // Library to manage Wi-Fi connection
