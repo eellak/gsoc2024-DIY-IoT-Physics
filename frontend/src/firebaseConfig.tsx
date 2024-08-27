@@ -10,13 +10,13 @@ import { getFirestore } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCV5DCp1MGLDDvTAPM37sEOywVgwz9TB2Y",
-  authDomain: "iot-physics.firebaseapp.com",
-  projectId: "iot-physics",
-  storageBucket: "iot-physics.appspot.com",
-  messagingSenderId: "117511795733",
-  appId: "1:117511795733:web:5e1d9b4d2cc0be30610a1c",
-  measurementId: "G-6N1LXH2133"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 // Initialize Firebase
