@@ -2,12 +2,23 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaLock, FaGithub, FaGoogle } from "react-icons/fa";
 import { auth, db } from "../firebaseConfig";
-import { signInWithEmailAndPassword, signInWithPopup, GithubAuthProvider, GoogleAuthProvider } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+} from "firebase/auth";
 import { getDocs, query, where, collection } from "firebase/firestore";
+import { useHistory } from "react-router-dom";
 
 const SignIn: React.FC = () => {
-  const [userType, setUserType] = useState<"schoolStudent" | "teacherCollege">("teacherCollege");
-  const [formData, setFormData] = useState({ usernameOrEmail: "", passwordOrCode: "" });
+  const [userType, setUserType] = useState<"schoolStudent" | "teacherCollege">(
+    "teacherCollege"
+  );
+  const [formData, setFormData] = useState({
+    usernameOrEmail: "",
+    passwordOrCode: "",
+  });
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -35,7 +46,11 @@ const SignIn: React.FC = () => {
         const userDoc = querySnapshot.docs[0];
         const userData = userDoc.data();
 
-        await signInWithEmailAndPassword(auth, userData.email, formData.passwordOrCode);
+        await signInWithEmailAndPassword(
+          auth,
+          userData.email,
+          formData.passwordOrCode
+        );
         alert("Login successful!");
       } catch (error: any) {
         console.error("Error signing in: ", error);
@@ -43,7 +58,11 @@ const SignIn: React.FC = () => {
       }
     } else {
       try {
-        await signInWithEmailAndPassword(auth, formData.usernameOrEmail, formData.passwordOrCode);
+        await signInWithEmailAndPassword(
+          auth,
+          formData.usernameOrEmail,
+          formData.passwordOrCode
+        );
         alert("Login successful!");
       } catch (error: any) {
         console.error("Error signing in: ", error);

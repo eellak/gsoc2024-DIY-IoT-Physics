@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import {
   FaUser,
   FaEnvelope,
@@ -9,7 +9,10 @@ import {
   FaLock,
 } from "react-icons/fa";
 import { auth, db } from "../firebaseConfig";
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 
 type FormData = {
@@ -23,7 +26,9 @@ type FormData = {
 };
 
 const SignUp: React.FC = () => {
-  const [studentType, setStudentType] = useState<"collegeStudent" | "teacher">("collegeStudent");
+  const [studentType, setStudentType] = useState<"collegeStudent" | "teacher">(
+    "collegeStudent"
+  );
   const [formData, setFormData] = useState<FormData>({
     username: "",
     dob: "",
@@ -34,7 +39,9 @@ const SignUp: React.FC = () => {
     confirmPassword: "",
   });
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { id, value } = e.target;
     setFormData({ ...formData, [id]: value });
   };
@@ -76,7 +83,11 @@ const SignUp: React.FC = () => {
     if (allFieldsValid && passwordsMatch) {
       try {
         // Create user with email and password
-        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          formData.email,
+          formData.password
+        );
         const user = userCredential.user;
 
         // Send email verification
@@ -94,14 +105,15 @@ const SignUp: React.FC = () => {
           isApproved: false,
         });
 
-        alert("User signed up and email sent for verification. Wait for admin approval.");
+        alert(
+          "User signed up and email sent for verification. Wait for admin approval."
+        );
       } catch (error: any) {
         console.error("Error signing up: ", error);
         alert("Error signing up: " + error.message);
       }
     }
   };
-
 
   return (
     <div
@@ -111,8 +123,9 @@ const SignUp: React.FC = () => {
       <div className="bg-white bg-opacity-80 p-8 rounded-lg shadow-lg max-w-md w-full m-6">
         <div className="text-center mt-4 ring-2 bg-yellow-100 ring-red-400">
           <p className="text-gray-600 m-3">
-            If you are a school student, use your class code to  <Link to="/signin" className="text-blue-600 hover:underline">
-            login.
+            If you are a school student, use your class code to{" "}
+            <Link to="/signin" className="text-blue-600 hover:underline">
+              login.
             </Link>
           </p>
         </div>
@@ -231,7 +244,7 @@ const SignUp: React.FC = () => {
               />
             </div>
           </div>
-          
+
           <div className="mb-4">
             <label
               htmlFor="password"
@@ -274,24 +287,24 @@ const SignUp: React.FC = () => {
               />
             </div>
             <div className="mb-4 mt-4">
-            <label
-              htmlFor="purpose"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Purpose to Use Lab <span className="text-red-500">*</span>
-            </label>
-            <textarea
-              id="purpose"
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
-              placeholder="Explain your purpose to use the lab"
-              value={formData.purpose}
-              onChange={handleInputChange}
-              onBlur={(e) =>
-                validateField("purpose to use lab", e.target.value)
-              }
-              rows={3}
-            ></textarea>
-          </div>
+              <label
+                htmlFor="purpose"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Purpose to Use Lab <span className="text-red-500">*</span>
+              </label>
+              <textarea
+                id="purpose"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                placeholder="Explain your purpose to use the lab"
+                value={formData.purpose}
+                onChange={handleInputChange}
+                onBlur={(e) =>
+                  validateField("purpose to use lab", e.target.value)
+                }
+                rows={3}
+              ></textarea>
+            </div>
           </div>
           <button
             type="submit"
@@ -305,7 +318,8 @@ const SignUp: React.FC = () => {
             Already have an account?{" "}
             <Link to="/signin" className="text-blue-600 hover:underline">
               Log in here!
-            </Link></p>
+            </Link>
+          </p>
         </div>
       </div>
     </div>
