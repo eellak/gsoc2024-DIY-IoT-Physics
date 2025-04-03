@@ -1,0 +1,238 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body{
+        background-color: rgb(253, 179, 136);
+    }
+}
+
+.footer {
+    position: relative;
+    z-index: 0;
+  }
+
+/* ---- Crousel --- */
+
+.slick-slide > div{
+    margin:0 40px;
+}
+
+.carousel-card {
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1;
+    width: 18rem;
+    height: 45rem;
+  }
+  
+  .slick-slide {
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+  }
+  
+  .slick-slide.highlighted {
+    opacity: 1;
+    transform: scale(0.8);
+  }
+  
+  .slick-center {
+    opacity: 1;
+    transform: scale(1.2);
+
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: black;
+  }
+  
+  .slick-list {
+    overflow: visible;
+  }
+  
+  .footer {
+    position: relative;
+    z-index: 0;
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+/* ---- Crousel --- */
+
+
+/* ---  Booking   ---*/
+
+.booking-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.react-calendar__tile.available {
+  background-color: green !important;
+  color: white !important;
+}
+
+.react-calendar__tile.low {
+  background-color: yellow !important;
+}
+
+.react-calendar__tile.full {
+  background-color: darkred !important;
+  color: white !important;
+}
+
+/* --  Booking ---*/
+
+/* General Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Carousel Specific Styles */
+.carousel-container {
+  padding-bottom: 40px;
+}
+
+.carousel-container .slick-slide {
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  padding: 10px;
+}
+
+.carousel-container .slick-center {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.carousel-container .slick-dots {
+  bottom: -30px;
+}
+
+.carousel-container .slick-dots li button:before {
+  font-size: 10px;
+  color: #6366F1;
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.carousel-container .slick-dots li.slick-active button:before {
+  opacity: 0.8;
+  transform: scale(1.5);
+}
+
+.carousel-container .slick-prev,
+.carousel-container .slick-next {
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 20;
+  transition: all 0.3s ease;
+}
+
+.carousel-container .slick-prev {
+  left: -15px;
+}
+
+.carousel-container .slick-next {
+  right: -15px;
+}
+
+.carousel-container .slick-prev:hover,
+.carousel-container .slick-next:hover {
+  background-color: white;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  transform: scale(1.1);
+}
+
+.carousel-container .slick-prev:before,
+.carousel-container .slick-next:before {
+  color: #4F46E5;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+/* Card Animation Effects */
+.carousel-card {
+  transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+  animation: slideUp 0.6s ease forwards;
+}
+
+.carousel-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Navbar Specific Styles */
+.shadow-glow {
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Handle body spacing with fixed navbar */
+body {
+  padding-top: 80px;
+}
+
+@media (max-width: 768px) {
+  .carousel-container .slick-prev {
+    left: -5px;
+  }
+  
+  .carousel-container .slick-next {
+    right: -5px;
+  }
+  
+  .carousel-container .slick-prev,
+  .carousel-container .slick-next {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Custom Loading Animation */
+.loading-spinner {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+.loading-spinner:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #4F46E5;
+  border-color: #4F46E5 transparent #4F46E5 transparent;
+  animation: spinner 1.2s linear infinite;
+}
+
+@keyframes spinner {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+  
